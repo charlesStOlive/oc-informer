@@ -2,6 +2,8 @@
 
 use Backend;
 use System\Classes\PluginBase;
+use Waka\Informer\Columns\IconInfo;
+use Event;
 
 /**
  * Informer Plugin Information File
@@ -34,12 +36,45 @@ class Plugin extends PluginBase
     }
 
     /**
+     * Register custom list type
+     *
+     * @return array
+     */
+    public function registerListColumnTypes()
+    {
+        return [
+            'waka-icon-info' => [IconInfo::class, 'render'],
+        ];
+    }
+
+    /**
      * Boot method, called right before the request route.
      *
      * @return array
      */
     public function boot()
     {
+        Event::listen('backend.page.beforeDisplay', function($controller, $action, $params) {
+            $controller->addJs('/waka/publisher/assets/js/clipboard.min.js');
+        });
+
+        Event::listen('backend.list.extendColumns', function ($widget) {
+            /** @var \Backend\Widgets\Lists $widget */
+            foreach ($widget->config->columns as $name => $config) {
+                if (empty($config['type']) || $config['type'] !== 'waka-icon-info') {
+                    continue;
+                }
+
+                // Store field config here, before that unofficial fields was removed
+                IconInfo::storeFieldConfig($name, $config);
+
+                $widget->addColumns([
+                    $name => array_merge($config, [
+                        'clickable' => false,
+                    ]),
+                ]);
+            }
+        });
 
     }
 
