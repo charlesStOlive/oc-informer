@@ -1,0 +1,32 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><?= e(trans('waka.informer::lang.popup.title')) ?></h4>
+        </div>
+        <div class="modal-body">
+            <?php foreach($infos as $info) { 
+                if(count($info['datas'])>0) { ?>
+            <div class="callout fade in callout-<?=$info['color']?> no-subheader ">
+                <div class="header">
+                    <i class="<?= $info['icon'] ?>"></i>
+                    <h3>Warning warning</h3>
+                </div>
+                <div class="content">
+                    <ul>
+                        <?php foreach($info['datas'] as $data) { ?>
+                        <li><?=e(trans($data->data))?></li>
+                        <?php } ?>
+
+                    </ul>
+                </div>
+            </div>
+            <?php }
+            } ?>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary"
+                data-dismiss="modal"><?= e(trans('waka.informer::lang.popup.title')) ?></button>
+        </div>
+    </div>
+</div>

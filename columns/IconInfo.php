@@ -15,12 +15,11 @@ class IconInfo
         'icon_warning'  => 'icon-exclamation-circle',
         'icon_success' => 'icon-check-circle',
         'icon_problem'   => 'icon-minus-circle',
-        'popup_label_warning' => null,
-        'popup_label_success' => null,
-        'popup_label_problem' => null,
-        'popup_data'    => null,
-        'launch_request' => false,
+        'icon_info'   => 'icon-info',
+        'icon-comments' => 'icon-comments',
         'request' => 'onCallInfoPopupBehavior',
+        'show_null' => false,
+        'icon_null' => 'icon-check'
     ];
 
     private static $listConfig = [];
@@ -48,26 +47,40 @@ class IconInfo
     {
         $field = new self($value, $column, $record);
         $config = $field->getConfig();
+        $informHightValue = $field->getInformHighttValue();
+        trace_log("informHightValue : ".$informHightValue);
+
+        if(!$informHightValue && !$config['show_null']) {
+            return null;
+        }
+        //
+        if(!$informHightValue && $config['show_null']) {
+            return '
+<span style="color:green">
+    <i class="' . $config['icon_null'] .' icon-lg"></i>
+</span>
+';
+        }
+        //
 
         if($config['launch_request']) {
             return '
 <a href="javascript:;"
-    data-request="' . $config['request'] . '"
+    data-control="popup"
+    data-handler="' . $config['request'] . '"
     data-request-data="' . $field->getRequestData() . '"
-    data-stripe-load-indicator
-    style="color:'.$field->getColorValue().'"
-    title="' . $field->getButtonTitle() . '">
-    <i class="' . $field->getIconValue() . ' icon-lg"></i>
+    style="color:'.$field->getColorValue($informHightValue).'"
+    title="' . $field->getButtonTitle($informHightValue) . '">
+    <i class="' . $field->getIconValue($informHightValue) . ' icon-lg"></i>
 </a>
 ';
 
         } else {
             return '
 <a href="javascript:;"
-    data-stripe-load-indicator
-    style="color:'.$field->getColorValue().'"
-    title="' . $field->getButtonTitle() . '">
-    <i class="' . $field->getIconValue() .' icon-lg"></i>
+    style="color:'.$field->getColorValue($informHightValue).'"
+    title="' . $field->getButtonTitle($informHightValue) . '">
+    <i class="' . $field->getIconValue($informHightValue) .' icon-lg"></i>
 </a>
 ';
             
@@ -96,6 +109,7 @@ class IconInfo
      *
      * @return mixed
      */
+
     private function getConfig($config = null)
     {
         if (is_null($config)) {
@@ -128,14 +142,48 @@ class IconInfo
     }
 
     /**
+     * Return inform value
+     *
+     * @return model
+     */
+    public function getInformHighttValue()
+    {
+
+        if($this->getCountTypeInform('*') == 0) {
+            return $this->informHightValue = null;
+        }
+        if($this->getCountTypeInform('problem')) {
+            return $this->informHightValue = 'problem';
+        }
+        if($this->getCountTypeInform('warning')) {
+            return $this->informHightValue = 'warning';
+        }
+        if($this->getCountTypeInform('info')) {
+            return $this->informHightValue = 'info';
+        }
+        if($this->getCountTypeInform('success')) {
+            return $this->informHightValue = 'success';
+        }
+    }
+    public function getCountTypeInform($type) {
+        if($type == '*') {
+            return $this->record->informs()->get()->count();
+        } else {
+            return $this->record->informs()->where('type', '=', $type)->get()->count();
+        }
+    }
+
+
+
+    /**
      * Return button text or icon
      *
      * @return string
      */
-    public function getIconValue()
+    public function getIconValue($informHightValue)
     {
         $icon;
-        switch ($this->value) {
+        switch ($informHightValue) {
             case 'warning':
                 $icon = $this->getConfig('icon_warning');
                 break;
@@ -144,6 +192,9 @@ class IconInfo
                 break;
             case 'success':
                 $icon = $this->getConfig('icon_success');
+                break;
+            case 'info':
+                $icon = $this->getConfig('icon_info');
                 break;
         }
         return $icon;
@@ -154,32 +205,16 @@ class IconInfo
      *
      * @return string
      */
-    public function getToolTipValue()
-    {
-        $toolTip;
-        switch ($this->value) {
-            case 'warning':
-                $toolTip = $this->getConfig('popup_label_warning');
-                break;
-            case 'problem':
-                $toolTip = $this->getConfig('popup_label_problem');
-                break;
-            case 'success':
-                $toolTip = $this->getConfig('popup_label_success');
-                break;
-        }
-        return $toolTip;
-    }
 
     /**
      * Return the wright color
      *
      * @return string
      */
-    public function getColorValue()
+    public function getColorValue($informHightValue)
     {
         $color = 'grey';
-        switch ($this->value) {
+        switch ($informHightValue) {
             case 'warning':
                 $color = 'orange';
                 break;
@@ -188,6 +223,9 @@ class IconInfo
                 break;
             case 'success':
                 $color = 'green';
+                break;
+            case 'info':
+                $color = 'info';
                 break;
         }
         return $color;
@@ -198,8 +236,23 @@ class IconInfo
      *
      * @return string
      */
-    public function getButtonTitle()
+    public function getButtonTitle($informHightValue)
     {
-        return 'Info';
+        $color = 'Cliquez pour voir les ';
+        switch ($informHightValue) {
+            case 'warning':
+                $color .= 'alertes';
+                break;
+            case 'problem':
+                $color .= 'erreurs';
+                break;
+            case 'success':
+                $color .= 'succès';
+                break;
+            case 'info':
+                $color .= 'infos';
+                break;
+        }
+        return $color;
     }
 }
