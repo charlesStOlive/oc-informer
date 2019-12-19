@@ -7,6 +7,7 @@ use October\Rain\Exception\ApplicationException;
 use Flash;
 use Redirect;
 use Session;
+use Lang;
 
 
 class PopupInfo extends ControllerBehavior
@@ -30,21 +31,25 @@ class PopupInfo extends ControllerBehavior
         $infos = [
             
             'problem' => [
+                'title' => Lang::get('waka.informer::lang.errors.problem'),
                 'color' => 'danger',
                 'icon' => 'icon-minus-circle',
                 'datas' =>  $this->getInformsByType($model, 'problem'),
             ],
             'warning' => [
+                'title' => Lang::get('waka.informer::lang.errors.warning'),
                 'color' => 'warning',
                 'icon' => 'icon-warning',
                 'datas' =>  $this->getInformsByType($model, 'warning'),
             ],
             'success' => [
+                'title' => Lang::get('waka.informer::lang.errors.success'),
                 'color' => 'success',
                 'icon' => 'icon-check-circle',
                 'datas' =>  $this->getInformsByType($model, 'success'),
             ],
             'info' => [
+                'title' => Lang::get('waka.informer::lang.errors.info'),
                 'color' => 'info',
                 'icon' => 'icon-info',
                 'datas' =>  $this->getInformsByType($model, 'info'),
@@ -52,21 +57,10 @@ class PopupInfo extends ControllerBehavior
         ];
         //
         $this->vars['infos'] = $infos;
-        // $infoArray = [];
-        // $infoArray['problem'] = $this->getInformsByType($model, 'problem');
-        // $infoArray['warning'] = $this->getInformsByType($model, 'warning');
-        // $infoArray['info'] = $this->getInformsByType($model, 'info');
-        // $infoArray['success'] = $this->getInformsByType($model, 'success');
-        // //
-        // $this->vars['infos'] = $infoArray;
-        //
         return $this->makePartial('$/waka/informer/behaviors/popupinfo/_popup.htm');
     }
 
     public function getInformsByType($model, $type) {
-        trace_log($type.'_____________________________________________');
-        trace_log($model->toArray());
-        //trace_log($model->where('type', '=', $type));
         return  $model->where('type', '=', $type);
     }
     

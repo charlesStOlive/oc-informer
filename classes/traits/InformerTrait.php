@@ -5,7 +5,10 @@ use \Waka\Informer\Models\Inform;
 
 trait InformerTrait
 {
-    public function record_inform($type, $data) {
+    public function record_inform($type, $data, $unique=false) {
+        if($unique) {
+            if($this->has_informs()) return;
+        }
         $inform = new Inform();
         $inform->type = $type;
         $inform->data = $data;
@@ -13,5 +16,9 @@ trait InformerTrait
     }
     public function delete_informs() {
         if(count($this->informs)) $this->informs()->delete();;
+    }
+    public function has_informs() {
+        if(count($this->informs)>0) return true;
+        return false;
     }
 }

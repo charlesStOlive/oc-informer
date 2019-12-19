@@ -6,17 +6,13 @@ use Model;
 
 class IconInfo
 {
+    use \Waka\Informer\Classes\Traits\InformerHighestTrait;
     /**
      * Default field configuration
      * all these params can be overrided by column config
      * @var array
      */
     private static $defaultFieldConfig = [
-        'icon_warning'  => 'icon-exclamation-circle',
-        'icon_success' => 'icon-check-circle',
-        'icon_problem'   => 'icon-minus-circle',
-        'icon_info'   => 'icon-info',
-        'icon-comments' => 'icon-comments',
         'request' => 'onCallInfoPopupBehavior',
         'show_null' => false,
         'icon_null' => 'icon-check'
@@ -48,7 +44,6 @@ class IconInfo
         $field = new self($value, $column, $record);
         $config = $field->getConfig();
         $informHightValue = $field->getInformHighttValue();
-        trace_log("informHightValue : ".$informHightValue);
 
         if(!$informHightValue && !$config['show_null']) {
             return null;
@@ -146,25 +141,7 @@ class IconInfo
      *
      * @return model
      */
-    public function getInformHighttValue()
-    {
-
-        if($this->getCountTypeInform('*') == 0) {
-            return $this->informHightValue = null;
-        }
-        if($this->getCountTypeInform('problem')) {
-            return $this->informHightValue = 'problem';
-        }
-        if($this->getCountTypeInform('warning')) {
-            return $this->informHightValue = 'warning';
-        }
-        if($this->getCountTypeInform('info')) {
-            return $this->informHightValue = 'info';
-        }
-        if($this->getCountTypeInform('success')) {
-            return $this->informHightValue = 'success';
-        }
-    }
+    
     public function getCountTypeInform($type) {
         if($type == '*') {
             return $this->record->informs()->get()->count();
@@ -175,84 +152,5 @@ class IconInfo
 
 
 
-    /**
-     * Return button text or icon
-     *
-     * @return string
-     */
-    public function getIconValue($informHightValue)
-    {
-        $icon;
-        switch ($informHightValue) {
-            case 'warning':
-                $icon = $this->getConfig('icon_warning');
-                break;
-            case 'problem':
-                $icon = $this->getConfig('icon_problem');
-                break;
-            case 'success':
-                $icon = $this->getConfig('icon_success');
-                break;
-            case 'info':
-                $icon = $this->getConfig('icon_info');
-                break;
-        }
-        return $icon;
-    }
-
-    /**
-     * Return the wright tooltip
-     *
-     * @return string
-     */
-
-    /**
-     * Return the wright color
-     *
-     * @return string
-     */
-    public function getColorValue($informHightValue)
-    {
-        $color = 'grey';
-        switch ($informHightValue) {
-            case 'warning':
-                $color = 'orange';
-                break;
-            case 'problem':
-                $color = 'red';
-                break;
-            case 'success':
-                $color = 'green';
-                break;
-            case 'info':
-                $color = 'info';
-                break;
-        }
-        return $color;
-    }
-
-    /**
-     * Return button hover title
-     *
-     * @return string
-     */
-    public function getButtonTitle($informHightValue)
-    {
-        $color = 'Cliquez pour voir les ';
-        switch ($informHightValue) {
-            case 'warning':
-                $color .= 'alertes';
-                break;
-            case 'problem':
-                $color .= 'erreurs';
-                break;
-            case 'success':
-                $color .= 'succès';
-                break;
-            case 'info':
-                $color .= 'infos';
-                break;
-        }
-        return $color;
-    }
+    
 }

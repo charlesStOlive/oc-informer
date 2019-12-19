@@ -47,6 +47,13 @@ class Plugin extends PluginBase
         ];
     }
 
+    public function registerFormWidgets(): array
+    {
+        return [
+            'Waka\Informer\FormWidgets\InformField' => 'informfield',
+        ];
+    }
+
     /**
      * Boot method, called right before the request route.
      *
