@@ -17,8 +17,12 @@ trait InformerTrait
     public function delete_informs() {
         if(count($this->informs)) $this->informs()->delete();;
     }
-    public function has_informs() {
-        if(count($this->informs)>0) return true;
+    public function has_informs($type=null) {
+        if($type) {
+            if(count($this->informs->where('type', '=', $type))>0) return true;
+        } else {
+            if(count($this->informs)>0) return true;
+        }
         return false;
     }
 }
