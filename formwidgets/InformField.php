@@ -45,8 +45,6 @@ class InformField extends FormWidgetBase
         $this->vars['name'] = $this->model[$this->valueFrom];
         $this->vars['modelClass'] = str_replace('\\', '\\\\', get_class($this->model));
         $this->vars['modelId'] = $this->model->id;
-        trace_log($informHightValue);
-        trace_log($this->getIconValue($informHightValue));
         $this->vars['icon'] = $this->getIconValue($informHightValue);
         $this->vars['color'] = $this->getColorValue($informHightValue); 
         $this->vars['buttonTitle'] = $this->getButtonTitle($informHightValue);
