@@ -43,6 +43,7 @@ class IconInfo
     {
         $field = new self($value, $column, $record);
         $config = $field->getConfig();
+        trace_log($column);
         $informHightValue = $field->getInformHighttValue();
 
         if(!$informHightValue && !$config['show_null']) {
