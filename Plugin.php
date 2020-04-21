@@ -1,9 +1,9 @@
 <?php namespace Waka\Informer;
 
 use Backend;
+use Event;
 use System\Classes\PluginBase;
 use Waka\Informer\Columns\IconInfo;
-use Event;
 
 /**
  * Informer Plugin Information File
@@ -15,7 +15,6 @@ class Plugin extends PluginBase
      */
     public $require = ['Waka.Utils'];
 
-
     /**
      * Returns information about this plugin.
      *
@@ -24,10 +23,10 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name'        => 'Informer',
+            'name' => 'Informer',
             'description' => 'No description provided yet...',
-            'author'      => 'Waka',
-            'icon'        => 'icon-leaf'
+            'author' => 'Waka',
+            'icon' => 'icon-leaf',
         ];
     }
 
@@ -67,9 +66,7 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        Event::listen('backend.page.beforeDisplay', function($controller, $action, $params) {
-            $controller->addJs('/waka/publisher/assets/js/clipboard.min.js');
-        });
+        
 
         Event::listen('backend.list.extendColumns', function ($widget) {
             /** @var \Backend\Widgets\Lists $widget */
@@ -117,7 +114,7 @@ class Plugin extends PluginBase
         return [
             'waka.informer.some_permission' => [
                 'tab' => 'Informer',
-                'label' => 'Some permission'
+                'label' => 'Some permission',
             ],
         ];
     }
@@ -133,11 +130,11 @@ class Plugin extends PluginBase
 
         return [
             'informer' => [
-                'label'       => 'Informer',
-                'url'         => Backend::url('waka/informer/mycontroller'),
-                'icon'        => 'icon-leaf',
+                'label' => 'Informer',
+                'url' => Backend::url('waka/informer/mycontroller'),
+                'icon' => 'icon-leaf',
                 'permissions' => ['waka.informer.*'],
-                'order'       => 500,
+                'order' => 500,
             ],
         ];
     }
