@@ -2,25 +2,24 @@
 
 use \Waka\Informer\Models\Inform;
 
-
 trait InformerHighestTrait
 {
     public function getInformHighttValue()
     {
 
-        if($this->getCountTypeInform('*') == 0) {
+        if ($this->getCountTypeInform('*') == 0) {
             return $this->informHightValue = null;
         }
-        if($this->getCountTypeInform('problem')) {
+        if ($this->getCountTypeInform('problem')) {
             return $this->informHightValue = 'problem';
         }
-        if($this->getCountTypeInform('warning')) {
+        if ($this->getCountTypeInform('warning')) {
             return $this->informHightValue = 'warning';
         }
-        if($this->getCountTypeInform('info')) {
+        if ($this->getCountTypeInform('info')) {
             return $this->informHightValue = 'info';
         }
-        if($this->getCountTypeInform('success')) {
+        if ($this->getCountTypeInform('success')) {
             return $this->informHightValue = 'success';
         }
     }
@@ -108,6 +107,4 @@ trait InformerHighestTrait
         }
         return $color;
     }
-    
-    
 }

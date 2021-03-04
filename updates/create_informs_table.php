@@ -17,7 +17,7 @@ class CreateInformsTable extends Migration
             $table->boolean('check')->default(0);
             $table->date('hide_until')->nullable();
             $table->integer('informeable_id')->unsigned()->nullable();
-            $table->string('informeable_type')->nullable();                                        
+            $table->string('informeable_type')->nullable();
             $table->timestamps();
         });
     }

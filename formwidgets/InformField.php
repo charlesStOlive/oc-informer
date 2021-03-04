@@ -36,7 +36,7 @@ class InformField extends FormWidgetBase
 
     /**
      * Prepares the form widget view data
-     */ 
+     */
     public function prepareVars()
     {
         // Fonction est dans le informerHighestTrait
@@ -46,12 +46,13 @@ class InformField extends FormWidgetBase
         $this->vars['modelClass'] = str_replace('\\', '\\\\', get_class($this->model));
         $this->vars['modelId'] = $this->model->id;
         $this->vars['icon'] = $this->getIconValue($informHightValue);
-        $this->vars['color'] = $this->getColorValue($informHightValue); 
+        $this->vars['color'] = $this->getColorValue($informHightValue);
         $this->vars['buttonTitle'] = $this->getButtonTitle($informHightValue);
     }
 
-    public function getCountTypeInform($type) {
-        if($type == '*') {
+    public function getCountTypeInform($type)
+    {
+        if ($type == '*') {
             return $this->model->informs()->get()->count();
         } else {
             return $this->model->informs()->where('type', '=', $type)->get()->count();

@@ -9,18 +9,17 @@ use Redirect;
 use Session;
 use Lang;
 
-
 class PopupInfo extends ControllerBehavior
 {
 
 
-	public function __construct($controller)
+    public function __construct($controller)
     {
         parent::__construct($controller);
     }
 
 
-     //ci dessous tous les calculs pour permettre l'import excel. 
+     //ci dessous tous les calculs pour permettre l'import excel.
 
     public function onCallInfoPopupBehavior()
     {
@@ -60,8 +59,8 @@ class PopupInfo extends ControllerBehavior
         return $this->makePartial('$/waka/informer/behaviors/popupinfo/_popup.htm');
     }
 
-    public function getInformsByType($model, $type) {
+    public function getInformsByType($model, $type)
+    {
         return  $model->where('type', '=', $type);
     }
-    
 }

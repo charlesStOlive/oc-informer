@@ -46,11 +46,11 @@ class IconInfo
        //trace_log($column);
         $informHightValue = $field->getInformHighttValue();
 
-        if(!$informHightValue && !$config['show_null']) {
+        if (!$informHightValue && !$config['show_null']) {
             return null;
         }
         //
-        if(!$informHightValue && $config['show_null']) {
+        if (!$informHightValue && $config['show_null']) {
             return '
 <span style="color:green">
     <i class="' . $config['icon_null'] .' icon-lg"></i>
@@ -59,7 +59,7 @@ class IconInfo
         }
         //
 
-        if($config['launch_request']) {
+        if ($config['launch_request']) {
             return '
 <a href="javascript:;"
     data-control="popup"
@@ -70,7 +70,6 @@ class IconInfo
     <i class="' . $field->getIconValue($informHightValue) . ' icon-lg"></i>
 </a>
 ';
-
         } else {
             return '
 <a href="javascript:;"
@@ -79,10 +78,7 @@ class IconInfo
     <i class="' . $field->getIconValue($informHightValue) .' icon-lg"></i>
 </a>
 ';
-            
         }
-
-        
     }
 
     /**
@@ -143,15 +139,12 @@ class IconInfo
      * @return model
      */
     
-    public function getCountTypeInform($type) {
-        if($type == '*') {
+    public function getCountTypeInform($type)
+    {
+        if ($type == '*') {
             return $this->record->informs()->get()->count();
         } else {
             return $this->record->informs()->where('type', '=', $type)->get()->count();
         }
     }
-
-
-
-    
 }
