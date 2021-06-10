@@ -2,8 +2,8 @@
 
 use Backend\Classes\ControllerBehavior;
 
-use October\Rain\Support\Collection;
-use October\Rain\Exception\ApplicationException;
+use Winter\Storm\Support\Collection;
+use Winter\Storm\Exception\ApplicationException;
 use Flash;
 use Redirect;
 use Session;
