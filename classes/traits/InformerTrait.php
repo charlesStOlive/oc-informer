@@ -4,6 +4,19 @@ use \Waka\Informer\Models\Inform;
 
 trait InformerTrait
 {
+
+    public static function bootInformerTrait()
+    {
+        static::extend(function ($model) {
+            /*
+             * Define relationships
+             */
+            $model->morphMany['informs'] = [
+                'Waka\Informer\Models\Inform',
+                'name' => 'informeable',
+            ];
+        });
+    }
     public function record_inform($type, $data, $unique = false)
     {
         if ($unique) {
