@@ -1,17 +1,16 @@
 <?php
 
 return [
-    'popup' => [
-        'title' => 'Liste des informations',
-        'bloc_type' => 'types',
-        'documents' => 'Documents',
+    "errors" => [
+        "info" => "Information",
+        "problem" => "Erreurs et problèmes critiques",
+        "success" => "OK",
+        "warning" => "Attention !"
     ],
-    'errors' => [
-        'problem' => 'Erreurs et problèmes critiques',
-        'warning' => 'Attention !',
-        'success' => 'OK',
-        'info' => 'Information',
+    "inform" => [
+        "name" => "Informations"
     ],
-    
-    
+    "popup" => [
+        "title" => "Liste des informations"
+    ]
 ];
