@@ -1,16 +1,16 @@
 <?php
 
 return [
-    "errors" => [
-        "info" => "Information",
-        "problem" => "Erreurs et problèmes critiques",
-        "success" => "OK",
-        "warning" => "Attention !"
+    'errors' => [
+        'info' => 'Information',
+        'problem' => 'Erreurs et problèmes critiques',
+        'success' => 'OK',
+        'warning' => 'Attention !'
     ],
-    "inform" => [
-        "name" => "Informations"
+    'inform' => [
+        'name' => 'Informations'
     ],
-    "popup" => [
-        "title" => "Liste des informations"
+    'popup' => [
+        'title' => 'Liste des informations'
     ]
 ];
