@@ -13,7 +13,7 @@ class Plugin extends PluginBase
     /**
      * @var array Plugin dependencies
      */
-    public $require = ['Waka.Utils'];
+    public $require = ['Waka.Wutils'];
 
     /**
      * Returns information about this plugin.

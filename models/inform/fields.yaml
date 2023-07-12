@@ -6,5 +6,5 @@ fields:
     name:
         label: waka.informer::lang.inform.name
     slug:
-        label: waka.utils::lang.global.slug
+        label: waka.wutils::lang.global.slug
         preset: name
